@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GameFoxDemo
 {
-    interface IGamesManager
+    public interface IGamesManager
     {
         public void AddGame(IGames game);
         public void UpdateGame(IGames game);
