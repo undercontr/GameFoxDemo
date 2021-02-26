@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using GameFoxDemo.Campaigns;
-using GameFoxDemo.Interfaces;
+using TcKimlikValidation;
 
 namespace GameFoxDemo
 {
@@ -62,14 +60,20 @@ namespace GameFoxDemo
 
         public void TCKimlikValidation(IGamer gamer)
         {
-            ITcKimlik tcValidation = new TcKimlikValidationLib();
+            using (KPSPublicSoapClient service = new KPSPublicSoapClient(KPSPublicSoapClient.EndpointConfiguration.KPSPublicSoap12))
+            {
+                var result = service.TCKimlikNoDogrula(
+                    new TCKimlikNoDogrulaRequest(
+                        new TCKimlikNoDogrulaRequestBody(
+                            long.Parse(gamer.TCNo),
+                            gamer.FirstName.ToUpper(),
+                            gamer.LastName.ToUpper(),
+                            gamer.DateOfBirth.Year
+                            )));
+                Console.WriteLine(result.Body.TCKimlikNoDogrulaResult);
+            }
+            
 
-            tcValidation.FirstName = gamer.FirstName;
-            tcValidation.LastName = gamer.LastName;
-            tcValidation.YearOfBirth = gamer.DateOfBirth.Year.ToString();
-            tcValidation.TcNo = gamer.TCNo;
-
-            tcValidation.Validate();
         }
     }
 }

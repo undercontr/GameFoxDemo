@@ -6,7 +6,7 @@ namespace GameFoxDemo
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) //PRESENTATION LAYER
         {
 
             Games gameOne = new Games()
