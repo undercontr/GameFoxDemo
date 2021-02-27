@@ -58,7 +58,7 @@ namespace GameFoxDemo
             }
         }
 
-        public void TCKimlikValidation(IGamer gamer)
+        public void TcKimlikValidation(IGamer gamer)
         {
             using (KPSPublicSoapClient service = new KPSPublicSoapClient(KPSPublicSoapClient.EndpointConfiguration.KPSPublicSoap12))
             {

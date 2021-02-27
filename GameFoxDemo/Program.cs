@@ -58,7 +58,7 @@ namespace GameFoxDemo
             GamerManager gamerManager = new GamerManager();
 
             gamerManager.RegisterAccount(gamer);
-            gamerManager.TCKimlikValidation(gamer);
+            gamerManager.TcKimlikValidation(gamer);
             gamerManager.AccountInfo(gamer);
 
             gamerManager.PurchaseGame(gameTwo, null, newYearCampaign, halloweenDiscountCampaign);

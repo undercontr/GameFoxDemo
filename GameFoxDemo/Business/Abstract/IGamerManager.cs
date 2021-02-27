@@ -12,6 +12,6 @@ namespace GameFoxDemo
         public void RemoveAccount(IGamer gamer);
         public void AccountInfo(IGamer gamer);
         public void PurchaseGame(IGames game, IGamer giftGamer, params ICampaign[] campaigns);
-        public bool TCKimlikValidation(IGamer gamer);
+        public void TcKimlikValidation(IGamer gamer);
     }
 }
