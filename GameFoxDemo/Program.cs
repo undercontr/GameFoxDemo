@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameFoxDemo.Business.Concrete;
 using GameFoxDemo.Campaigns;
+using N11;
 
 namespace GameFoxDemo
 {
@@ -31,7 +33,7 @@ namespace GameFoxDemo
                 Username = "undercontr",
                 FirstName = "Önder",
                 LastName = "Alkan",
-                TCNo = "12345678900",
+                TcNo = 1234567900,
                 DateOfBirth = new DateTime(1991, 09, 07),
                 Address = "Şu sokak",
                 GamesPuchased = new List<IGames>() { gameOne }
@@ -55,10 +57,9 @@ namespace GameFoxDemo
                 DateAdded = DateTime.Now
             };
 
-            GamerManager gamerManager = new GamerManager();
+            GamerManager gamerManager = new GamerManager(new GamerValidation());
 
             gamerManager.RegisterAccount(gamer);
-            gamerManager.TcKimlikValidation(gamer);
             gamerManager.AccountInfo(gamer);
 
             gamerManager.PurchaseGame(gameTwo, null, newYearCampaign, halloweenDiscountCampaign);
@@ -70,8 +71,6 @@ namespace GameFoxDemo
             gamesManager.DeleteGame(gameTwo);
             gamesManager.UpdateGame(gameOne);
             gamesManager.BringGameInfo(gameOne);
-
-            
 
         }
     }

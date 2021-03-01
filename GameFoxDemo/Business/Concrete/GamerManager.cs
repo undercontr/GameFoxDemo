@@ -1,4 +1,5 @@
 ﻿using System;
+using GameFoxDemo.Business.Abstract;
 using GameFoxDemo.Campaigns;
 using TcKimlikValidation;
 
@@ -6,11 +7,23 @@ namespace GameFoxDemo
 {
     class GamerManager : IGamerManager
     {
+        private readonly IGamerValidation _gamerValidation;
 
+        public GamerManager(IGamerValidation gamerValidation)
+        {
+            _gamerValidation = gamerValidation;
+        }
 
         public void RegisterAccount(IGamer gamer)
         {
-            Console.WriteLine($@"{gamer.FirstName} {gamer.LastName} is registered. Welcome Dovahkiin!");
+            if (_gamerValidation.Validate(gamer))
+            {
+                Console.WriteLine($@"{gamer.FirstName} {gamer.LastName} is registered. Welcome Dovahkiin!");
+            }
+            else
+            {
+                Console.WriteLine($@"Dear {gamer.FirstName}, we are sorry to tell you that you are a big fat liar. YOUR INFORMATION ARE INCORRECT!");
+            }
         }
 
         public void UpdateGamerInfo(IGamer gamer)
@@ -31,7 +44,7 @@ namespace GameFoxDemo
 
         public void AccountInfo(IGamer gamer)
         {
-            Console.WriteLine($@"Your account info: Id: {gamer.Id} | First Name: {gamer.FirstName} | Last Name: {gamer.LastName} | Tc No: {gamer.TCNo}| Birthday: {gamer.DateOfBirth} | Address: {gamer.Address}");
+            Console.WriteLine($@"Your account info: Id: {gamer.Id} | First Name: {gamer.FirstName} | Last Name: {gamer.LastName} | Tc No: {gamer.TcNo}| Birthday: {gamer.DateOfBirth} | Address: {gamer.Address}");
             Console.WriteLine("The games you purchased:");
             foreach (var game in gamer.GamesPuchased)
             {
@@ -45,7 +58,7 @@ namespace GameFoxDemo
 
             if (giftGamer != null)
             {
-                Console.WriteLine($@"And it is gifted to {giftGamer.FirstName}");
+                Console.Write($@"And it is gifted to {giftGamer.FirstName}");
             }
 
             if (campaigns.Length != 0)
@@ -58,22 +71,5 @@ namespace GameFoxDemo
             }
         }
 
-        public void TcKimlikValidation(IGamer gamer)
-        {
-            using (KPSPublicSoapClient service = new KPSPublicSoapClient(KPSPublicSoapClient.EndpointConfiguration.KPSPublicSoap12))
-            {
-                var result = service.TCKimlikNoDogrula(
-                    new TCKimlikNoDogrulaRequest(
-                        new TCKimlikNoDogrulaRequestBody(
-                            long.Parse(gamer.TCNo),
-                            gamer.FirstName.ToUpper(),
-                            gamer.LastName.ToUpper(),
-                            gamer.DateOfBirth.Year
-                            )));
-                Console.WriteLine(result.Body.TCKimlikNoDogrulaResult);
-            }
-            
-
-        }
     }
 }

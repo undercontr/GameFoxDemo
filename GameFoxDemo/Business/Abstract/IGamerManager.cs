@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GameFoxDemo.Business.Abstract;
 using GameFoxDemo.Campaigns;
 
 namespace GameFoxDemo
@@ -12,6 +13,5 @@ namespace GameFoxDemo
         public void RemoveAccount(IGamer gamer);
         public void AccountInfo(IGamer gamer);
         public void PurchaseGame(IGames game, IGamer giftGamer, params ICampaign[] campaigns);
-        public void TcKimlikValidation(IGamer gamer);
     }
 }
